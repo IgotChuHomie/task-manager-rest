@@ -15,6 +15,10 @@ public class Comment {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt ;
 
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
+
     public Comment(String content, LocalDateTime createdAt) {
         this.content = content;
         this.createdAt = createdAt;
@@ -47,12 +51,21 @@ public class Comment {
         this.createdAt = createdAt;
     }
 
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", createdAt=" + createdAt +
+                ", task=" + task +
                 '}';
     }
 }

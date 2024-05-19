@@ -1,19 +1,19 @@
 package com.taskifyrestapi.application.dto;
 
-public class UserDto {
+public class UserDTO {
     private int id;
     private String email;
     private String firstName;
     private String lastName;
 
-    public UserDto(int id, String email, String firstName, String lastName) {
+    public UserDTO(int id, String email, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public UserDto() {
+    public UserDTO() {
     }
 
     public int getId() {

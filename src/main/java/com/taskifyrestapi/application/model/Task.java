@@ -1,12 +1,13 @@
 package com.taskifyrestapi.application.model;
 
+import com.taskifyrestapi.application.enums.Label;
 import com.taskifyrestapi.application.enums.Priority;
 import com.taskifyrestapi.application.enums.Status;
-import com.taskifyrestapi.application.enums.Type;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Task {
@@ -25,16 +26,27 @@ public class Task {
     private LocalDateTime createdAt ;
     private String title ;
     @Enumerated(value = EnumType.STRING)
-    private Type type ;
+    private Label label ;
 
-    public Task(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Type type) {
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Task(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Label label) {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
         this.createdAt = createdAt;
         this.title = title;
-        this.type = type;
+        this.label = label;
     }
 
     public Task() {
@@ -73,6 +85,30 @@ public class Task {
         this.priority = priority;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -97,12 +133,20 @@ public class Task {
         this.title = title;
     }
 
-    public Type getType() {
-        return type;
+    public Member getMember() {
+        return member;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Label getType() {
+        return label;
+    }
+
+    public void setType(Label label) {
+        this.label = label;
     }
 
     @Override
@@ -115,7 +159,10 @@ public class Task {
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", title='" + title + '\'' +
-                ", type=" + type +
+                ", label=" + label +
+                ", project=" + project +
+                ", comments=" + comments +
+                ", member=" + member +
                 '}';
     }
 }
