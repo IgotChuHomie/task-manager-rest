@@ -1,11 +1,20 @@
 package com.taskifyrestapi.application.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("Member")
 public class Member extends User {
+
+
+    @ManyToMany(mappedBy = "members" )
+    private List<Project> projects;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
     public Member() {
     }
 
@@ -53,6 +62,22 @@ public class Member extends User {
         super.setLastName(lastName);
     }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public String getPassword() {
         return super.getPassword();
@@ -65,6 +90,9 @@ public class Member extends User {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Member{" +
+                "projects=" + projects +
+                ", tasks=" + tasks +
+                '}';
     }
 }

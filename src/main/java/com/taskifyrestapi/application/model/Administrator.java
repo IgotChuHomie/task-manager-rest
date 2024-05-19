@@ -10,6 +10,9 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("Administrator")
 public class Administrator extends User {
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Project> projects;
+
 
     public Administrator() {
     }

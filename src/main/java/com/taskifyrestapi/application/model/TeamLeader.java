@@ -1,11 +1,15 @@
 package com.taskifyrestapi.application.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("TeamLeader")
 public class TeamLeader extends User {
+    @OneToMany(mappedBy = "teamLeader", fetch = FetchType.LAZY)
+    private List<Project> projects;
+
     public TeamLeader(String email, String firstName, String lastName, String password) {
         super(email, firstName, lastName, password);
     }
@@ -41,6 +45,14 @@ public class TeamLeader extends User {
     @Override
     public void setFirstName(String firstName) {
         super.setFirstName(firstName);
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

@@ -1,5 +1,5 @@
 package com.taskifyrestapi.application.enums;
 
 public enum Status {
-    DONE , SOMETHING
+    Backlog , Todo , InProgress , Done , Canceled
 }
