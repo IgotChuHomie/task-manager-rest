@@ -1,5 +1,6 @@
 package com.taskifyrestapi.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("TeamLeader")
 public class TeamLeader extends User {
+    @JsonIgnore
     @OneToMany(mappedBy = "teamLeader", fetch = FetchType.LAZY)
     private List<Project> projects;
 
