@@ -22,7 +22,7 @@ public class Project {
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "team_lead")
     private TeamLeader teamLeader;
