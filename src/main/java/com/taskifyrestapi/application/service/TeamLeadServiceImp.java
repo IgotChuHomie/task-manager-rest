@@ -7,6 +7,8 @@ import com.taskifyrestapi.application.repository.TeamLeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeamLeadServiceImp implements TeamLeadService{
     private TeamLeaderRepository teamLeaderRepository ;
@@ -21,6 +23,11 @@ public class TeamLeadServiceImp implements TeamLeadService{
     @Override
     public TeamLeader saveTeamLeader(TeamLeader teamLeader) {
         return teamLeaderRepository.save(teamLeader);
+    }
+
+    @Override
+    public List<TeamLeader> getAllTeamLeaders() {
+        return teamLeaderRepository.findAll();
     }
 
 
