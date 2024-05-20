@@ -2,6 +2,7 @@ package com.taskifyrestapi.application;
 
 import com.taskifyrestapi.application.dto.ProjectDTO;
 import com.taskifyrestapi.application.model.Administrator;
+import com.taskifyrestapi.application.model.Member;
 import com.taskifyrestapi.application.model.TeamLeader;
 import com.taskifyrestapi.application.service.AdministratorService;
 import com.taskifyrestapi.application.service.MemberService;
@@ -28,8 +29,11 @@ public class Application {
 			 TeamLeader user = new TeamLeader("aminel3zwa@gmail.com" , "teamlead","lastteamlead","some password");
 			 teamLeadService.saveTeamLeader(user) ;
 
-			// Member member = new Member("membereami@gmail.com" , "memberfirstname","memberlastName","somepassword") ;
-			// memberService.saveMember(member) ;
+			 Member member = new Member("membereami@gmail.com" , "memberfirstname","memberlastName","somepassword") ;
+			 memberService.saveMember(member) ;
+
+			Member member1 = new Member("membereami@gmail.com" , "memberfirstname","memberlastName","somepassword") ;
+			memberService.saveMember(member1) ;
 
 			 //Administrator administrator = new Administrator("ismail" ,"ismail","chraibi","ismail chraibi") ;
 			 //administratorService.saveAdministrator(administrator) ;
