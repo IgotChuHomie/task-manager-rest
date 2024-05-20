@@ -1,9 +1,11 @@
 package com.taskifyrestapi.application.controller;
 
+import com.taskifyrestapi.application.dto.TaskDTO;
 import com.taskifyrestapi.application.model.Project;
 import com.taskifyrestapi.application.model.Task;
 import com.taskifyrestapi.application.service.ProjectService;
 import com.taskifyrestapi.application.service.TaskService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,9 @@ public class TaskController {
 
 
 
-    @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task createdTask = taskService.createTask(task);
+    @PostMapping("/project/{projectId}/member/{memberId}")
+    public ResponseEntity<Task> createTask(@RequestBody TaskDTO taskDTO , @PathVariable int projectId, @PathVariable int memberId) {
+        Task createdTask = taskService.createTask(taskDTO, projectId, memberId);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
@@ -60,25 +62,6 @@ public class TaskController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/project/{projectId}")
-    public ResponseEntity<Task> addTaskToProject(@PathVariable int projectId, @RequestBody Task task) {
-        return projectService.getProjectById(projectId)
-                .map(project -> {
-                    task.setProject(project);
-                    Task savedTask = taskService.createTask(task);
-                    return ResponseEntity.ok(savedTask);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
 
-    @PostMapping("/{taskId}/members/{memberId}")
-    public ResponseEntity<Task> addMemberToTask(@PathVariable int taskId, @PathVariable int memberId) {
-        try {
-            Task task = taskService.addMemberToTask(taskId, memberId);
-            return ResponseEntity.ok(task);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
 }

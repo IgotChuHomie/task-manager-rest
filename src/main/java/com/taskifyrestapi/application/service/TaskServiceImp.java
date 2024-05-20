@@ -1,5 +1,6 @@
 package com.taskifyrestapi.application.service;
 
+import com.taskifyrestapi.application.dto.TaskDTO;
 import com.taskifyrestapi.application.model.Member;
 import com.taskifyrestapi.application.model.Project;
 import com.taskifyrestapi.application.model.Task;
@@ -7,6 +8,7 @@ import com.taskifyrestapi.application.repository.MemberRepository;
 import com.taskifyrestapi.application.repository.ProjectRepository;
 import com.taskifyrestapi.application.repository.TaskRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +21,32 @@ public class TaskServiceImp implements TaskService{
     private TaskRepository taskRepository ;
     private ProjectRepository projectRepository ;
     private MemberRepository memberRepository ;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public TaskServiceImp(TaskRepository taskRepository , ProjectRepository projectRepository , MemberRepository memberRepository){
+    public TaskServiceImp(ModelMapper modelMapper ,  TaskRepository taskRepository , ProjectRepository projectRepository , MemberRepository memberRepository){
         this.projectRepository = projectRepository ;
+        this.modelMapper = modelMapper ;
         this.memberRepository = memberRepository ;
         this.taskRepository = taskRepository ;
     }
 
     @Override
     @Transactional
-    public Task createTask(Task task) {
+    public Task createTask(TaskDTO taskDTO , int projectId, int memberId) {
+        Task task = modelMapper.map(taskDTO, Task.class);
+        Optional<Project> projectOptional = projectRepository.findById(projectId);
+        if (!projectOptional.isPresent()) {
+            throw new RuntimeException("Project not found");
+        }
+        task.setProject(projectOptional.get());
+
+        Optional<Member> memberOptional = memberRepository.findById(memberId);
+        if (!memberOptional.isPresent()) {
+            throw new RuntimeException("Member not found");
+        }
+        task.setMember(memberOptional.get());
+
         return taskRepository.save(task);
     }
 
@@ -55,32 +72,5 @@ public class TaskServiceImp implements TaskService{
         taskRepository.deleteById(taskId);
     }
 
-    @Override
-    @Transactional
-    public Task addTaskToProject(int projectId, Task task) {
-        Optional<Project> project = projectRepository.findById(projectId);
-        if (project.isPresent()) {
-            task.setProject(project.get());
-            return taskRepository.save(task);
-        } else {
-            throw new RuntimeException("Project not found with id: " + projectId);
-        }
-    }
 
-    @Override
-    @Transactional
-    public Task addMemberToTask(int taskId, int memberId) {
-        Optional<Task> taskOptional = taskRepository.findById(taskId);
-        Optional<Member> memberOptional = memberRepository.findById(memberId);
-
-        if (taskOptional.isPresent() && memberOptional.isPresent()) {
-            Task task = taskOptional.get();
-            Member member = memberOptional.get();
-
-            task.setMember(member);
-            return taskRepository.save(task);
-        } else {
-            throw new RuntimeException("Task or Member not found");
-        }
-    }
 }
