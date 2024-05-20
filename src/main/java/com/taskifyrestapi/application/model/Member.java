@@ -1,5 +1,6 @@
 package com.taskifyrestapi.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -9,9 +10,11 @@ import java.util.List;
 public class Member extends User {
 
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "members" )
     private List<Project> projects;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Task> tasks;
 

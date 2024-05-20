@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectServiceImp implements ProjectService{
@@ -29,6 +30,11 @@ public class ProjectServiceImp implements ProjectService{
     @Override
     public Project saveProject(Project project) {
         return projectRepository.save(project);
+    }
+
+    @Override
+    public Optional<Project> getProjectById(int projectId) {
+        return projectRepository.findById(projectId);
     }
 
     @Override
@@ -59,10 +65,20 @@ public class ProjectServiceImp implements ProjectService{
     @Override
     @Transactional
     public Project updateProject(int projectId, ProjectDTO projectDTO) {
-        Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new RuntimeException("Project not found with id " + projectId));
+        Optional<Project> projectOptional = projectRepository.findById(projectId);
+        if (!projectOptional.isPresent()) {
+            throw new RuntimeException("Project not found");
+        }
+
+        Project project = projectOptional.get();
         project.setName(projectDTO.getName());
         project.setDescription(projectDTO.getDescription());
+
+        Optional<TeamLeader> teamLeadOptional = teamLeaderRepository.findById(projectDTO.getTeamLeaderId());
+        if (!teamLeadOptional.isPresent()) {
+            throw new RuntimeException("Team Lead not found");
+        }
+        project.setTeamLeader(teamLeadOptional.get());
         return projectRepository.save(project);
     }
 }

@@ -1,20 +1,24 @@
 package com.taskifyrestapi.application;
 
 import com.taskifyrestapi.application.dto.ProjectDTO;
+import com.taskifyrestapi.application.enums.Label;
+import com.taskifyrestapi.application.enums.Priority;
+import com.taskifyrestapi.application.enums.Status;
 import com.taskifyrestapi.application.model.Administrator;
 import com.taskifyrestapi.application.model.Member;
+import com.taskifyrestapi.application.model.Task;
 import com.taskifyrestapi.application.model.TeamLeader;
-import com.taskifyrestapi.application.service.AdministratorService;
-import com.taskifyrestapi.application.service.MemberService;
-import com.taskifyrestapi.application.service.ProjectService;
-import com.taskifyrestapi.application.service.TeamLeadService;
+import com.taskifyrestapi.application.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -25,7 +29,7 @@ public class Application {
 	}
 
 	@Bean
-	CommandLineRunner run(ProjectService projectService, TeamLeadService teamLeadService , MemberService memberService , AdministratorService administratorService) {
+	CommandLineRunner run(TaskService taskService ,  ProjectService projectService, TeamLeadService teamLeadService , MemberService memberService , AdministratorService administratorService) {
 		return args -> {
 			TeamLeader tl1 = new TeamLeader("johndoe@gmail.com" , "John","Doe","john123");
 			 teamLeadService.saveTeamLeader(tl1) ;
@@ -54,6 +58,11 @@ public class Application {
 			List<Integer> memberIds2 = Arrays.asList(4, 5);
 			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1) , 1) ;
 			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2) , 2) ;
+
+			LocalDate localDate = LocalDate.of(2024, 12, 25);
+			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			taskService.addTaskToProject(1 , new Task("task description " , date , Priority.High , Status.Backlog ,"the title " , Label.Bug )) ;
+			taskService.addMemberToTask(1 , 3) ;
 		};
 	}
 }
