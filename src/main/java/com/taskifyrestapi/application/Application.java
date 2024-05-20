@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -26,22 +27,33 @@ public class Application {
 	@Bean
 	CommandLineRunner run(ProjectService projectService, TeamLeadService teamLeadService , MemberService memberService , AdministratorService administratorService) {
 		return args -> {
-			 TeamLeader user = new TeamLeader("aminel3zwa@gmail.com" , "teamlead","lastteamlead","some password");
-			 teamLeadService.saveTeamLeader(user) ;
+			TeamLeader tl1 = new TeamLeader("johndoe@gmail.com" , "John","Doe","john123");
+			 teamLeadService.saveTeamLeader(tl1) ;
 
-			 Member member = new Member("membereami@gmail.com" , "memberfirstname","memberlastName","somepassword") ;
-			 memberService.saveMember(member) ;
+			TeamLeader tl2 = new TeamLeader("saralissaoui@gmail.com" , "Sara","Lissaoui","sara123");
+			teamLeadService.saveTeamLeader(tl2) ;
 
-			Member member1 = new Member("membereami@gmail.com" , "memberfirstname","memberlastName","somepassword") ;
-			memberService.saveMember(member1) ;
+			Member member1 = new Member("jackblack@gmail.com" , "Jack","Black","jakio123") ;
+			 memberService.saveMember(member1) ;
+
+			Member member2 = new Member("eliza@gmail.com" , "Eliza","Beth","lili123") ;
+			memberService.saveMember(member2) ;
+
+			Member member3 = new Member("charly@gmail.com" , "Charly","Snow","snow123") ;
+			memberService.saveMember(member3) ;
 
 			 //Administrator administrator = new Administrator("ismail" ,"ismail","chraibi","ismail chraibi") ;
 			 //administratorService.saveAdministrator(administrator) ;
 
-			List<Integer> projectIds = new ArrayList<>( );
-			projectIds.add(1) ;
-			projectIds.add(2) ;
-			 projectService.createProject(new ProjectDTO("projectName","some Fucking description" , projectIds) , 1) ;
+//			List<Integer> memberIds = new ArrayList<>( );
+//			memberIds.add(1) ;
+//			memberIds.add(2) ;
+//			memberIds.add(3) ;
+//			memberIds.add(4) ;
+			List<Integer> memberIds1 = Arrays.asList(3,4);
+			List<Integer> memberIds2 = Arrays.asList(4, 5);
+			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1) , 1) ;
+			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2) , 2) ;
 		};
 	}
 }
