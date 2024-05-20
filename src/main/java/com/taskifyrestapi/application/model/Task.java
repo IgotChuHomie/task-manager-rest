@@ -1,5 +1,6 @@
 package com.taskifyrestapi.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taskifyrestapi.application.enums.Label;
 import com.taskifyrestapi.application.enums.Priority;
 import com.taskifyrestapi.application.enums.Status;
@@ -32,6 +33,7 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
