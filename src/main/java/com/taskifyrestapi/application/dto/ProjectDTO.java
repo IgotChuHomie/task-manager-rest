@@ -6,10 +6,12 @@ public class ProjectDTO {
     private String name;
     private String description ;
     private List<Integer> members ;
+    private int teamLeaderId ;
 
 
-    public ProjectDTO(String name, String description , List<Integer> members) {
+    public ProjectDTO(  String name, String description , List<Integer> members , int teamLeaderId ) {
         this.name = name;
+        this.teamLeaderId = teamLeaderId ;
         this.description = description;
         this.members = members ;
     }
@@ -24,6 +26,14 @@ public class ProjectDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getTeamLeaderId() {
+        return teamLeaderId;
+    }
+
+    public void setTeamLeaderId(int teamLeaderId) {
+        this.teamLeaderId = teamLeaderId;
     }
 
     public String getDescription() {
@@ -47,7 +57,8 @@ public class ProjectDTO {
         return "ProjectDTO{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", membersIds=" + members +
+                ", members=" + members +
+                ", teamLeaderId=" + teamLeaderId +
                 '}';
     }
 }

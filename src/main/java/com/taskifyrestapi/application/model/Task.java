@@ -39,12 +39,11 @@ public class Task {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Task(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Label label) {
+    public Task(String description, Date dueDate, Priority priority, Status status, String title, Label label) {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.status = status;
-        this.createdAt = createdAt;
         this.title = title;
         this.label = label;
     }
