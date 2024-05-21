@@ -48,16 +48,11 @@ public class Application {
 
 			 //Administrator administrator = new Administrator("ismail" ,"ismail","chraibi","ismail chraibi") ;
 			 //administratorService.saveAdministrator(administrator) ;
-
-//			List<Integer> memberIds = new ArrayList<>( );
-//			memberIds.add(1) ;
-//			memberIds.add(2) ;
-//			memberIds.add(3) ;
-//			memberIds.add(4) ;
+			
 			List<Integer> memberIds1 = Arrays.asList(3,4);
 			List<Integer> memberIds2 = Arrays.asList(4, 5);
-			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1) , 1) ;
-			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2) , 2) ;
+			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1, 1) , 1) ;
+			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2, 2) , 2) ;
 
 			LocalDate localDate = LocalDate.of(2024, 12, 25);
 			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
