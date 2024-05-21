@@ -56,8 +56,6 @@ public class Application {
 
 			LocalDate localDate = LocalDate.of(2024, 12, 25);
 			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			taskService.addTaskToProject(1 , new Task("task description " , date , Priority.High , Status.Backlog ,"the title " , Label.Bug )) ;
-			taskService.addMemberToTask(1 , 3) ;
 		};
 	}
 }
