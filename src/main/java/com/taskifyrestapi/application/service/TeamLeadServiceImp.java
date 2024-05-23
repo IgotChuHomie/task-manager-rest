@@ -5,6 +5,7 @@ import com.taskifyrestapi.application.model.TeamLeader;
 import com.taskifyrestapi.application.repository.ProjectRepository;
 import com.taskifyrestapi.application.repository.TeamLeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public class TeamLeadServiceImp implements TeamLeadService{
     private ProjectRepository projectRepository ;
 
     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
     public TeamLeadServiceImp(TeamLeaderRepository teamLeaderRepository , ProjectRepository projectRepository){
         this.teamLeaderRepository = teamLeaderRepository ;
         this.projectRepository = projectRepository ;
@@ -22,6 +26,8 @@ public class TeamLeadServiceImp implements TeamLeadService{
 
     @Override
     public TeamLeader saveTeamLeader(TeamLeader teamLeader) {
+        String encodedPassword = passwordEncoder.encode(teamLeader.getPassword());
+        teamLeader.setPassword(encodedPassword);
         return teamLeaderRepository.save(teamLeader);
     }
 

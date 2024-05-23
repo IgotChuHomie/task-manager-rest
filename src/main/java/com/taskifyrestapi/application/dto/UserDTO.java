@@ -1,16 +1,22 @@
 package com.taskifyrestapi.application.dto;
 
+import com.taskifyrestapi.application.enums.Role;
+
 public class UserDTO {
     private int id;
     private String email;
     private String firstName;
     private String lastName;
+    private Role role;
+    private String token;
 
-    public UserDTO(int id, String email, String firstName, String lastName) {
+    public UserDTO(int id, String email, String firstName, String lastName, Role role, String token) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
+        this.token = token;
     }
 
     public UserDTO() {
@@ -46,6 +52,22 @@ public class UserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Role getRole(){
+        return role;
+    }
+
+    public void setRole(Role role){
+        this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

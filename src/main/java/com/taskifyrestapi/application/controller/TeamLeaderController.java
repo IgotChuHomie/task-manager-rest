@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/teamleaders")
+@RequestMapping("/teamleader")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TeamLeaderController {
     @Autowired
     private TeamLeadService teamLeadService ;
 
-    @GetMapping()
+    @GetMapping("/teamleaders")
     public List<TeamLeader> getAllTeamLeaders(){
         return teamLeadService.getAllTeamLeaders() ;
     }

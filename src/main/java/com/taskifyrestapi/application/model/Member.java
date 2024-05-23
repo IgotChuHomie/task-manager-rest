@@ -2,11 +2,12 @@ package com.taskifyrestapi.application.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import com.taskifyrestapi.application.enums.Role;
 
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("Member")
+@DiscriminatorValue("member")
 public class Member extends User {
 
 
@@ -22,7 +23,7 @@ public class Member extends User {
     }
 
     public Member(String email, String firstName, String lastName, String password) {
-        super(email, firstName, lastName, password);
+        super(email, firstName, lastName, password, Role.MEMBER);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.taskifyrestapi.application;
 
+import com.taskifyrestapi.application.config.PasswordConfig;
 import com.taskifyrestapi.application.dto.ProjectDTO;
 import com.taskifyrestapi.application.dto.TaskDTO;
 import com.taskifyrestapi.application.enums.Label;

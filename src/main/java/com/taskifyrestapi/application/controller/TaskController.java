@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/task")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
@@ -27,7 +27,6 @@ public class TaskController {
         this.taskService = taskService ;
         this.projectService = projectService ;
     }
-
 
 
     @PostMapping("/project/{projectId}/member/{memberId}")

@@ -1,12 +1,17 @@
 package com.taskifyrestapi.application.model;
 
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
+=======
+import com.taskifyrestapi.application.enums.Role;
+
+>>>>>>> fc0705f (auth changes)
 import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "discriminator_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +23,15 @@ public abstract class User {
     @JsonIgnore
     private String password;
 
-    public User(String email, String firstName, String lastName, String password) {
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public User(String email, String firstName, String lastName, String password, Role role) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.role = role;
     }
 
     public User() {
@@ -68,6 +77,14 @@ public abstract class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -78,4 +95,5 @@ public abstract class User {
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }

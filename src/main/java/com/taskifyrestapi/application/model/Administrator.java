@@ -4,11 +4,12 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import com.taskifyrestapi.application.enums.Role;
 
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("Administrator")
+@DiscriminatorValue("administrator")
 public class Administrator extends User {
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projects;
@@ -18,7 +19,7 @@ public class Administrator extends User {
     }
 
     public Administrator(String email, String firstName, String lastName, String password) {
-        super(email, firstName, lastName, password);
+        super(email, firstName, lastName, password, Role.ADMINISTRATOR);
     }
 
     @Override
