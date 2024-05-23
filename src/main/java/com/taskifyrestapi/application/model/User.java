@@ -1,6 +1,7 @@
 package com.taskifyrestapi.application.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,7 @@ public abstract class User {
     private String email;
     private String firstName;
     private String lastName;
+    @JsonIgnore
     private String password;
 
     public User(String email, String firstName, String lastName, String password) {
