@@ -1,6 +1,7 @@
 package com.taskifyrestapi.application;
 
 import com.taskifyrestapi.application.dto.ProjectDTO;
+import com.taskifyrestapi.application.dto.TaskDTO;
 import com.taskifyrestapi.application.enums.Label;
 import com.taskifyrestapi.application.enums.Priority;
 import com.taskifyrestapi.application.enums.Status;
@@ -15,11 +16,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import static com.taskifyrestapi.application.enums.Label.Documentation;
+import static com.taskifyrestapi.application.enums.Priority.Low;
+import static com.taskifyrestapi.application.enums.Status.Backlog;
 
 @SpringBootApplication
 public class Application {
@@ -53,6 +59,8 @@ public class Application {
 			List<Integer> memberIds2 = Arrays.asList(4, 5);
 			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1, 1) , 1) ;
 			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2, 2) , 2) ;
+
+			taskService.createTask(new TaskDTO("add new diagrams", new Date(), Low,Backlog,LocalDateTime.now(),"review pitch deck",Documentation), 2,4);
 
 			LocalDate localDate = LocalDate.of(2024, 12, 25);
 			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
