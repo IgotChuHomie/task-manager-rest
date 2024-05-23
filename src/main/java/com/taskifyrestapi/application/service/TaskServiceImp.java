@@ -57,9 +57,39 @@ public class TaskServiceImp implements TaskService{
 
     @Override
     @Transactional
-    public Task updateTask(Task task) {
+    public Task updateTask(TaskDTO taskDTO) {
+        Optional<Task> taskOptional = taskRepository.findById(taskDTO.getId());
+        if (!taskOptional.isPresent()) {
+            throw new RuntimeException("Task not found");
+        }
+
+        Task task = taskOptional.get();
+
+        task.setDescription(taskDTO.getDescription());
+        task.setDueDate(taskDTO.getDueDate());
+        task.setPriority(taskDTO.getPriority());
+        task.setStatus(taskDTO.getStatus());
+        task.setTitle(taskDTO.getTitle());
+        task.setLabel(taskDTO.getLabel());
+
+        if (taskDTO.getProjectId() > 0 && task.getProject().getId() != taskDTO.getProjectId()) {
+            Optional<Project> projectOptional = projectRepository.findById(taskDTO.getProjectId());
+            if (!projectOptional.isPresent()) {
+                throw new RuntimeException("Project not found");
+            }
+            task.setProject(projectOptional.get());
+        }
+
+        if (taskDTO.getMemberId() > 0 && task.getMember().getId() != taskDTO.getMemberId()) {
+            Optional<Member> memberOptional = memberRepository.findById(taskDTO.getMemberId());
+            if (!memberOptional.isPresent()) {
+                throw new RuntimeException("Member not found");
+            }
+            task.setMember(memberOptional.get());
+        }
         return taskRepository.save(task);
     }
+
 
     @Override
     public Optional<Task> getTaskById(int id) {

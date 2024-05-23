@@ -53,14 +53,10 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody Task task) {
-        return taskService.getTaskById(id)
-                .map(existingTask -> {
-                    task.setId(id);
-                    Task updatedTask = taskService.updateTask(task);
-                    return ResponseEntity.ok(updatedTask);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody TaskDTO taskDTO) {
+        if (taskDTO.getId() < 0 ) taskDTO.setId(id);
+        Task updatedTask = taskService.updateTask(taskDTO);
+        return ResponseEntity.ok(updatedTask);
     }
 
     @DeleteMapping("/{id}")

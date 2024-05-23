@@ -16,11 +16,25 @@ public class TaskDTO {
     private LocalDateTime createdAt;
     private String title;
     private Label label;
+    private int projectId ;
+    private int memberId ;
 
     public TaskDTO() {
     }
 
-    public TaskDTO(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Label label) {
+    public TaskDTO(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Label label , int projectId , int memberId) {
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.title = title;
+        this.label = label;
+        this.memberId = memberId ;
+        this.projectId = projectId ;
+    }
+
+    public TaskDTO(String description, Date dueDate, Priority priority, Status status, LocalDateTime createdAt, String title, Label label ) {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
@@ -92,5 +106,21 @@ public class TaskDTO {
 
     public void setLabel(Label label) {
         this.label = label;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 }

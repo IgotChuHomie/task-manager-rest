@@ -60,7 +60,7 @@ public class Application {
 			projectService.createProject(new ProjectDTO("JEE App","Projet Master GLCC" , memberIds1, 1) , 1) ;
 			projectService.createProject(new ProjectDTO("Python App","Projet Python GLCC" , memberIds2, 2) , 2) ;
 
-			taskService.createTask(new TaskDTO("add new diagrams", new Date(), Low,Backlog,LocalDateTime.now(),"review pitch deck",Documentation), 2,4);
+			taskService.createTask(new TaskDTO ("add new diagrams", new Date(), Low,Backlog,LocalDateTime.now(),"review pitch deck",Documentation), 2,4);
 
 			LocalDate localDate = LocalDate.of(2024, 12, 25);
 			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
