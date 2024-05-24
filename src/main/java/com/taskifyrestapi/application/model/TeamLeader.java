@@ -2,18 +2,18 @@ package com.taskifyrestapi.application.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
+import com.taskifyrestapi.application.enums.Role;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("TeamLeader")
+@DiscriminatorValue("teamleader")
 public class TeamLeader extends User {
     @JsonIgnore
     @OneToMany(mappedBy = "teamLeader", fetch = FetchType.LAZY)
     private List<Project> projects;
 
     public TeamLeader(String email, String firstName, String lastName, String password) {
-        super(email, firstName, lastName, password);
+        super(email, firstName, lastName, password, Role.TEAMLEADER);
     }
 
     public TeamLeader() {
