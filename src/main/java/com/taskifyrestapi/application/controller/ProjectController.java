@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/teamleader")
@@ -34,6 +35,12 @@ public class ProjectController {
         return projectService.getAllProjects() ;
     }
 
+    @GetMapping("/projects/{projectId}")
+    @PreAuthorize("hasAuthority('TEAMLEADER')")
+    public Optional<Project> getProjectById(@PathVariable int projectId){
+        return projectService.getProjectById(projectId) ;
+    }
+
     @DeleteMapping("/projects/{projectId}")
     @PreAuthorize("hasAuthority('TEAMLEADER')")
     @Transactional
@@ -43,6 +50,7 @@ public class ProjectController {
     }
 
     @PutMapping("/projects/{projectId}")
+    @PreAuthorize("hasAuthority('TEAMLEADER')")
     @Transactional
     public ResponseEntity<Project> updateProject(@PathVariable int projectId, @RequestBody ProjectDTO projectDTO) {
         Project updatedProject = projectService.updateProject(projectId, projectDTO);

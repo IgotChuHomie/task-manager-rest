@@ -30,8 +30,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sessionManagement -> 
                     sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((requests) -> requests
-                        // .requestMatchers(HttpMethod.GET, "/projects").hasAuthority("TEAMLEADER")
+                        .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers(HttpMethod.GET, "/teamleader/projects/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.POST, "/teamleader/projects/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.PUT, "/teamleader/projects/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.DELETE, "/teamleader/projects/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.GET, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.POST, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.POST, "/teamleader/tasks/project/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.PUT, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
+                        .requestMatchers(HttpMethod.DELETE, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .anyRequest().authenticated())
         ;

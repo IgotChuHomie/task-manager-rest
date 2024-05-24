@@ -1,12 +1,9 @@
 package com.taskifyrestapi.application.model;
 
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
-=======
 import com.taskifyrestapi.application.enums.Role;
 
->>>>>>> fc0705f (auth changes)
 import jakarta.persistence.*;
 
 @Entity

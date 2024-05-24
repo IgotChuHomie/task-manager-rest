@@ -3,6 +3,7 @@ package com.taskifyrestapi.application.controller;
 import com.taskifyrestapi.application.model.TeamLeader;
 import com.taskifyrestapi.application.service.TeamLeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class TeamLeaderController {
     private TeamLeadService teamLeadService ;
 
     @GetMapping("/teamleaders")
+    @PreAuthorize("hasAuthority('TEAMLEADER')")
     public List<TeamLeader> getAllTeamLeaders(){
         return teamLeadService.getAllTeamLeaders() ;
     }
