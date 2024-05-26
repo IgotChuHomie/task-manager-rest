@@ -41,6 +41,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
                         .requestMatchers(HttpMethod.DELETE, "/teamleader/tasks/**").hasAuthority("TEAMLEADER")
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll() 
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
         ;
         return http.build();
