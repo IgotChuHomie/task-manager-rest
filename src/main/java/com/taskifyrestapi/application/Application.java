@@ -56,7 +56,7 @@ public class Application {
 			Member member4 = new Member("walid@gmail.com" , "Walid","Beth","walid123") ;
 			memberService.saveMember(member4) ;
 
-			Administrator administrator = new Administrator("admin" ,"admin","admin","admin123") ;
+			Administrator administrator = new Administrator("admin@gmail.com" ,"admin","admin","admin123") ;
 			administratorService.saveAdministrator(administrator) ;
 			
 			List<Integer> memberIds1 = Arrays.asList(3,4);
